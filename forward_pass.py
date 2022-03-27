@@ -33,7 +33,7 @@ def forward_pass(W, xTr, trans_func):
 
         
     # INSERT CODE: (last one is special, no transition function)
-    aas[0] = np.matmul(W[0],zzs[1])
+    aas[0] = np.dot(W[0],zzs[1])
     zzs[0] = aas[0]
     
     return aas, zzs

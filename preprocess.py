@@ -26,13 +26,9 @@ def preprocess(xTr,xTe):
     dTe, nTe = np.shape(xTe)
 
     m = np.mean(xTr, axis=1)[:, None]
-    m_xTr = np.repeat(np.mean(xTr, axis=1)[:, None], nTr, axis=1)
-    m_xTe = np.repeat(np.mean(xTr, axis=1)[:, None], nTe, axis=1)
+    u = np.multiply(np.eye(dTr),1/(np.std(xTr,axis=1).T))
 
-    u = np.ones((dTr, 1)) / np.repeat(np.std(xTr, axis=1)[:, None], dTr, axis=1)
-    u = np.diag(np.diag(u))
-
-    xTr = u @ (xTr - m_xTr)
-    xTe = u @ (xTe - m_xTe)
+    xTr = np.dot(u, xTr - m)
+    xTe = np.dot(u, xTe - m)
     ## >>
     return xTr, xTe, u, m
